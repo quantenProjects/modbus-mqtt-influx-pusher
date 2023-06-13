@@ -1,0 +1,24 @@
+{
+  "livedata": {
+    "gridVoltage": {
+      "address": 0x5,
+      "length": 1,
+      "type": "int",
+      "unit": "V",
+      "factor": 0.1,
+      "description": "Voltage of Grid"
+    },
+    "status": {
+      "address": 0x600,
+      "length": 1,
+      "type": "int",
+      "unit": "constants",
+      "description": "Status of Inverter",
+      "mapping": {
+        "0": "ok",
+        "1": "error",
+        "2": "fire"
+      }
+    }
+  }
+}
