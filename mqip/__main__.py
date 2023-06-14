@@ -24,6 +24,18 @@ if __name__ == '__main__':
     reader = modbus.RegisterReader(register_description)
     client = ModbusTcpClient(config["mqip"]["host"], port=config["mqip"].getint("port", fallback=502))
 
+    client.connect()
+    result = reader.update(client)
+    if result != modbus.UpdateResult.SUCCESSFUL:
+        raise RuntimeError("updated failed!")
+    else:
+        print("connected to modbus")
+    client.close()
+
+    interval_minutes = config["mqip"].getint("interval")
+    interval = datetime.timedelta(minutes=interval_minutes)
+    measurement_name = config["mqip"]["measurement_name"]
+
     pushers = []
 
     if "mqtt" in config:
@@ -36,6 +48,34 @@ if __name__ == '__main__':
     for pusher in pushers:
         pusher.connect()
 
-    client.connect()
 
-    # TODO
+    def now() -> datetime.datetime:
+        return datetime.datetime.now(datetime.timezone.utc)
+    last_timestamp = now().replace(second=0, microsecond=0)
+
+    def flush():
+        for pusher in pushers:
+            pusher.flush()
+
+    def close():
+        for pusher in pushers:
+            pusher.close()
+
+    try:
+        while True:
+            if now() > last_timestamp + interval:
+                timestamp = now().replace(second=0, microsecond=0)
+                client.connect()
+                result = reader.update(client)
+                if result != modbus.UpdateResult.SUCCESSFUL:
+                    flush()
+                    close()
+                    raise RuntimeError("updated failed!")
+                client.close()
+                for pusher in pushers:
+                    pusher.push(measurement_name, reader.values, reader.mapped_values, timestamp)
+                last_timestamp = timestamp
+            time.sleep(0.5)
+    except KeyboardInterrupt:
+        flush()
+        close()
