@@ -137,7 +137,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     with open(args.register_description) as file:
-        register_description = json5.load(file)["livedata"]
+        register_description = json5.load(file)
 
     client = ModbusTcpClient(args.host, args.port)
 
