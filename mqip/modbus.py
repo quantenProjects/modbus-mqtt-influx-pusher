@@ -85,8 +85,7 @@ class RegisterReader:
         def check_if_names_are_okay_for_a_batch(name_list: list[str]) -> bool:
             assert sorted(name_list, key=name_to_address) == name_list
             length = name_to_address(name_list[-1]) - name_to_address(name_list[0]) + register_description[name_list[-1]]["length"]
-            used_values = sum([register_description[name]["length"] for name in name_list])
-            return length <= 100 and (used_values / length) > 0.5
+            return length <= 100
 
         names_sorted_by_addr = list(sorted(register_description.keys(), key=name_to_address))
         start_index = 0
@@ -102,7 +101,9 @@ class RegisterReader:
 
     def update(self, client: mixin.ModbusClientMixin, request_pause: float = 1) -> UpdateResult:
         self.clear()
-        for batch in self.batches:
+        for i, batch in enumerate(self.batches):
+            if i > 0:
+                time.sleep(request_pause)
             result = batch.update(client)
             if result != UpdateResult.SUCCESSFUL:
                 self.clear()  # clear not complete values
@@ -117,7 +118,6 @@ class RegisterReader:
                     key = str(value)
                     if key in this_register_description["mapping"]:
                         self._mapped_values[value_name] = this_register_description["mapping"][key]
-            time.sleep(request_pause)
         return UpdateResult.SUCCESSFUL
 
     @property
