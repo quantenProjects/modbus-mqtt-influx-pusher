@@ -34,7 +34,7 @@ class InfluxPusher(Pusher):
         if timestamp is not None:
             timestamp = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
         point = point.time(timestamp)
-        self.write_api.write(point=point, bucket=self.bucket)
+        self.write_api.write(bucket=self.bucket, record=point)
         self.write_api.flush()
 
     def close(self):
