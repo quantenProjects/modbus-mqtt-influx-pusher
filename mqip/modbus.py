@@ -36,11 +36,7 @@ class RegisterBatch:
 
     def update(self, client: mixin.ModbusClientMixin) -> UpdateResult:
         self.clear()
-        print("requesting")
-        print(self.addr, self.count)
         registers = client.read_input_registers(self.addr, self.count).registers
-        print(registers)
-        # TODO check if this endianess is correct
         decoder = BinaryPayloadDecoder.fromRegisters(registers, byteorder=Endian.Big, wordorder=Endian.Little)
         for i, name in enumerate(self.name_list):
             value = None
@@ -63,7 +59,6 @@ class RegisterBatch:
             if value is None:
                 raise ValueError("register descriptions contains unknown data types")
             self._raw_values[name] = value
-        print(self._raw_values)
         return UpdateResult.SUCCESSFUL
 
     @property
@@ -92,7 +87,6 @@ class RegisterReader:
         for i in range(1, len(names_sorted_by_addr) + 1):
             if i >= len(names_sorted_by_addr) or not check_if_names_are_okay_for_a_batch(names_sorted_by_addr[start_index:i + 1]):
                 self.batches.append(RegisterBatch(register_description, names_sorted_by_addr[start_index: i]))
-                print(f"{start_index}:{i}")
                 start_index = i
 
     def clear(self):
