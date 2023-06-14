@@ -146,3 +146,5 @@ if __name__ == '__main__':
 
     for value_name in reader.values:
         print(f"{value_name + ':' :25} {reader.values[value_name]:>10} {register_description[value_name]['unit']}", f"{reader.mapped_values[value_name]}" if value_name in reader.mapped_values else "")
+
+    client.close()
