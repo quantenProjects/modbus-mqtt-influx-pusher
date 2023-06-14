@@ -35,8 +35,5 @@ class MqttPusher(Pusher):
         for value_name in mapped_data:
             self.client.publish(self.topic_prefix + "/" + measurement_name + "/" + value_name + "/mapped", mapped_data[value_name])
 
-    def flush(self):
-        pass
-
     def close(self):
         self.client.disconnect()

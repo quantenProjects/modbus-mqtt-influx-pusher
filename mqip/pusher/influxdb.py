@@ -35,8 +35,6 @@ class InfluxPusher(Pusher):
             timestamp = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
         point = point.time(timestamp)
         self.write_api.write(point=point, bucket=self.bucket)
-
-    def flush(self):
         self.write_api.flush()
 
     def close(self):

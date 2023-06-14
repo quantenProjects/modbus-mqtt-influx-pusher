@@ -53,10 +53,6 @@ if __name__ == '__main__':
         return datetime.datetime.now(datetime.timezone.utc)
     last_timestamp = now().replace(second=0, microsecond=0)
 
-    def flush():
-        for pusher in pushers:
-            pusher.flush()
-
     def close():
         for pusher in pushers:
             pusher.close()
@@ -68,7 +64,6 @@ if __name__ == '__main__':
                 client.connect()
                 result = reader.update(client)
                 if result != modbus.UpdateResult.SUCCESSFUL:
-                    flush()
                     close()
                     raise RuntimeError("updated failed!")
                 client.close()
@@ -77,5 +72,4 @@ if __name__ == '__main__':
                 last_timestamp = timestamp
             time.sleep(0.5)
     except KeyboardInterrupt:
-        flush()
         close()

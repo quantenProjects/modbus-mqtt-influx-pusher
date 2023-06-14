@@ -17,6 +17,3 @@ class Pusher:
 
     def push(self, measurement_name: str, data: dict, mapped_data: dict, timestamp: Optional[datetime.datetime] = None):
         raise NotImplementedError()
-
-    def flush(self):
-        raise NotImplementedError()
