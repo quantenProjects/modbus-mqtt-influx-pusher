@@ -10,6 +10,7 @@ from typing import Any
 from pymodbus.client import mixin, ModbusTcpClient
 from pymodbus.constants import Endian
 from pymodbus.payload import BinaryPayloadDecoder
+from pymodbus.exceptions import ModbusIOException
 
 
 Values = dict[str, Any]
@@ -36,7 +37,10 @@ class RegisterBatch:
 
     def update(self, client: mixin.ModbusClientMixin) -> UpdateResult:
         self.clear()
-        registers = client.read_input_registers(self.addr, self.count).registers
+        result = client.read_input_registers(self.addr, self.count)
+        if isinstance(result, ModbusIOException):
+            return UpdateResult.FAILURE
+        registers = result.registers
         decoder = BinaryPayloadDecoder.fromRegisters(registers, byteorder=Endian.Big, wordorder=Endian.Little)
         for i, name in enumerate(self.name_list):
             value = None

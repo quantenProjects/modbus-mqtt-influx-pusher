@@ -5,8 +5,10 @@ import configparser
 import json5
 import datetime
 import time
+import random
 
 from pymodbus.client import ModbusTcpClient
+from pymodbus.exceptions import ConnectionException, ModbusIOException, ModbusException, InvalidMessageReceivedException
 
 from mqip import modbus
 
@@ -61,12 +63,19 @@ if __name__ == '__main__':
         while True:
             if now() > last_timestamp + interval:
                 timestamp = now().replace(second=0, microsecond=0)
-                client.connect()
-                result = reader.update(client)
-                if result != modbus.UpdateResult.SUCCESSFUL:
-                    close()
-                    raise RuntimeError("updated failed!")
-                client.close()
+                try:
+                    client.connect()
+                    result = reader.update(client)
+                    if result != modbus.UpdateResult.SUCCESSFUL:
+                        close()
+                        raise RuntimeError("updated failed!")
+                    client.close()
+                except (ConnectionException, ModbusIOException, ModbusException, InvalidMessageReceivedException, RuntimeError) as e:
+                    # cheap restart delay, since docker compose can't do it on its own...
+                    print(f"Exception during update {e}")
+                    print(f"waiting waiting 2 min (+ random up to 1 min) before exiting with error")
+                    time.sleep(60 * 2)
+                    time.sleep(random.randrange(10, 60))
                 for pusher in pushers:
                     pusher.push(measurement_name, reader.values, reader.mapped_values, timestamp)
                 last_timestamp = timestamp
