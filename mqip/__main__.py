@@ -6,6 +6,7 @@ import json5
 import datetime
 import time
 import random
+import sys
 
 from pymodbus.client import ModbusTcpClient
 from pymodbus.exceptions import ConnectionException, ModbusIOException, ModbusException, InvalidMessageReceivedException
@@ -76,6 +77,7 @@ if __name__ == '__main__':
                     print(f"waiting waiting 2 min (+ random up to 1 min) before exiting with error")
                     time.sleep(60 * 2)
                     time.sleep(random.randrange(10, 60))
+                    sys.exit(1)
                 for pusher in pushers:
                     pusher.push(measurement_name, reader.values, reader.mapped_values, timestamp)
                 last_timestamp = timestamp
