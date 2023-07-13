@@ -10,7 +10,7 @@
   "gridCurrent": {
     "address": 0x1,
     "length": 1,
-    "type": "uint",
+    "type": "int",
     "unit": "A",
     "factor": 0.1,
     "description": "Grid Current X1",
@@ -167,7 +167,7 @@
   "gridCurrentR": {
     "address": 0x6B,
     "length": 1,
-    "type": "uint",
+    "type": "int",
     "unit": "A",
     "factor": 0.1,
     "description": "Grid Current X3 R",
@@ -175,7 +175,7 @@
   "gridPowerR": {
     "address": 0x6C,
     "length": 1,
-    "type": "uint",
+    "type": "int",
     "unit": "W",
     "description": "Grid Power X3 R",
   },
@@ -198,7 +198,7 @@
   "gridCurrentS": {
     "address": 0x6F,
     "length": 1,
-    "type": "uint",
+    "type": "int",
     "unit": "A",
     "factor": 0.1,
     "description": "Grid Current X3 S",
@@ -206,7 +206,7 @@
   "gridPowerS": {
     "address": 0x70,
     "length": 1,
-    "type": "uint",
+    "type": "int",
     "unit": "W",
     "description": "Grid Power X3 S",
   },
@@ -229,7 +229,7 @@
   "gridCurrentT": {
     "address": 0x73,
     "length": 1,
-    "type": "uint",
+    "type": "int",
     "unit": "A",
     "factor": 0.1,
     "description": "Grid Current X3 T",
@@ -237,7 +237,7 @@
   "gridPowerT": {
     "address": 0x74,
     "length": 1,
-    "type": "uint",
+    "type": "int",
     "unit": "W",
     "description": "Grid Power X3 T",
   },
