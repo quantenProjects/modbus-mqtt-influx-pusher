@@ -41,7 +41,7 @@ class RegisterBatch:
         if isinstance(result, ModbusIOException):
             return UpdateResult.FAILURE
         registers = result.registers
-        decoder = BinaryPayloadDecoder.fromRegisters(registers, byteorder=Endian.Big, wordorder=Endian.Little)
+        decoder = BinaryPayloadDecoder.fromRegisters(registers, byteorder=Endian.BIG, wordorder=Endian.LITTLE)
         for i, name in enumerate(self.name_list):
             value = None
             type = self.register_description[name]["type"]

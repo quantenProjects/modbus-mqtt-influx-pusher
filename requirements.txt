@@ -1,4 +1,4 @@
 influxdb-client
-pymodbus
+pymodbus==3.5.*
 paho-mqtt
 json5
