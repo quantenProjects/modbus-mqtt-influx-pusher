@@ -21,7 +21,7 @@ class MqttPusher(Pusher):
         super().__init__()
 
     def connect(self):
-        self.client = mqtt.Client()
+        self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
         if "ca_cert" in self.config["mqtt"]:
             self.client.tls_set(ca_certs=self.config["mqtt"]["ca_cert"], certfile=self.config["mqtt"]["cert"], keyfile=self.config["mqtt"]["key"])
         if "username" in self.config["mqtt"]:
