@@ -72,11 +72,12 @@ class RegisterBatch:
 
 class RegisterReader:
 
-    def __init__(self, register_description: dict):
+    def __init__(self, register_description: dict, max_batch_size=5):
         self.register_description = register_description
         self.batches: list[RegisterBatch] = []
         self._values: Values = {}
         self._mapped_values: Values = {}
+        self._max_batch_size = max_batch_size
 
         def name_to_address(name: str) -> int:
             return register_description[name]["address"]
@@ -84,7 +85,7 @@ class RegisterReader:
         def check_if_names_are_okay_for_a_batch(name_list: list[str]) -> bool:
             assert sorted(name_list, key=name_to_address) == name_list
             length = name_to_address(name_list[-1]) - name_to_address(name_list[0]) + register_description[name_list[-1]]["length"]
-            return length <= 100
+            return length <= self._max_batch_size
 
         names_sorted_by_addr = list(sorted(register_description.keys(), key=name_to_address))
         start_index = 0
@@ -132,6 +133,7 @@ if __name__ == '__main__':
     parser.add_argument("register_description")
     parser.add_argument("host")
     parser.add_argument("--port", default=502, type=int)
+    parser.add_argument("--max-batch-size", default=5, type=int)
     args = parser.parse_args()
 
     with open(args.register_description) as file:
@@ -139,7 +141,9 @@ if __name__ == '__main__':
 
     client = ModbusTcpClient(args.host, args.port)
 
-    reader = RegisterReader(register_description)
+    reader = RegisterReader(register_description, max_batch_size=args.max_batch_size)
+    for i, batch in enumerate(reader.batches):
+        print(f"batch {i} has {batch.count} bytes, starting at {batch.addr}")
     reader.update(client)
 
     for value_name in reader.values:
