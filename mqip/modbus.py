@@ -5,7 +5,7 @@ import time
 import json5
 
 from enum import Enum
-from typing import Any
+from typing import Any, Optional
 
 from pymodbus.client import mixin, ModbusTcpClient
 from pymodbus.constants import Endian
@@ -35,9 +35,13 @@ class RegisterBatch:
     def clear(self):
         self._raw_values = {}
 
-    def update(self, client: mixin.ModbusClientMixin) -> UpdateResult:
+    def update(self, client: mixin.ModbusClientMixin, slave_id: Optional[int] = None) -> UpdateResult:
         self.clear()
-        result = client.read_input_registers(self.addr, self.count)
+        if slave_id is None:
+            result = client.read_input_registers(self.addr, self.count)
+        else:
+            result = client.read_input_registers(self.addr, self.count, slave=slave_id)
+        print(result)
         if isinstance(result, ModbusIOException):
             return UpdateResult.FAILURE
         registers = result.registers
@@ -98,12 +102,12 @@ class RegisterReader:
         self._values = {}
         self._mapped_values = {}
 
-    def update(self, client: mixin.ModbusClientMixin, request_pause: float = 1) -> UpdateResult:
+    def update(self, client: mixin.ModbusClientMixin, slave_id = None, request_pause: float = 1) -> UpdateResult:
         self.clear()
         for i, batch in enumerate(self.batches):
             if i > 0:
                 time.sleep(request_pause)
-            result = batch.update(client)
+            result = batch.update(client, slave_id=slave_id)
             if result != UpdateResult.SUCCESSFUL:
                 self.clear()  # clear not complete values
                 return UpdateResult.FAILURE
@@ -134,17 +138,18 @@ if __name__ == '__main__':
     parser.add_argument("host")
     parser.add_argument("--port", default=502, type=int)
     parser.add_argument("--max-batch-size", default=5, type=int)
+    parser.add_argument("--slave-id", default=None, type=int)
     args = parser.parse_args()
 
     with open(args.register_description) as file:
         register_description = json5.load(file)
 
-    client = ModbusTcpClient(args.host, args.port)
+    client = ModbusTcpClient(args.host, port=args.port)
 
     reader = RegisterReader(register_description, max_batch_size=args.max_batch_size)
     for i, batch in enumerate(reader.batches):
         print(f"batch {i} has {batch.count} bytes, starting at {batch.addr}")
-    reader.update(client)
+    print(reader.update(client, slave_id=args.slave_id))
 
     for value_name in reader.values:
         print(f"{value_name + ':' :25} {reader.values[value_name]:>10} {register_description[value_name]['unit']}", f"{reader.mapped_values[value_name]}" if value_name in reader.mapped_values else "")
