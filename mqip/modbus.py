@@ -135,10 +135,11 @@ class RegisterReader:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("register_description")
-    parser.add_argument("host")
-    parser.add_argument("--port", default=502, type=int)
-    parser.add_argument("--max-batch-size", default=5, type=int)
-    parser.add_argument("--slave-id", default=None, type=int)
+    parser.add_argument("host", help="Host for modbus")
+    parser.add_argument("--port", help="TCP port for modbus", default=502, type=int)
+    parser.add_argument("--slave-id", help="Modbus Slave ID", default=None, type=int)
+    parser.add_argument("--max-batch-size", help="Read a maximum of max-batch-sizes registers per request", default=5, type=int)
+    parser.add_argument("--request-pause", help="Pause between requesting two batches, sec", default=1, type=float)
     args = parser.parse_args()
 
     with open(args.register_description) as file:
@@ -149,7 +150,7 @@ if __name__ == '__main__':
     reader = RegisterReader(register_description, max_batch_size=args.max_batch_size)
     for i, batch in enumerate(reader.batches):
         print(f"batch {i} has {batch.count} bytes, starting at {batch.addr}")
-    print(reader.update(client, slave_id=args.slave_id))
+    print(reader.update(client, slave_id=args.slave_id, request_pause=args.request_pause))
 
     for value_name in reader.values:
         print(f"{value_name + ':' :25} {reader.values[value_name]:>10} {register_description[value_name]['unit']}", f"{reader.mapped_values[value_name]}" if value_name in reader.mapped_values else "")
