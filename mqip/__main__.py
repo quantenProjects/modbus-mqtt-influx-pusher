@@ -27,7 +27,7 @@ if __name__ == '__main__':
     reader = modbus.RegisterReader(register_description, max_batch_size=config["mqip"].getint("batch_size", fallback=5))
     client = ModbusTcpClient(config["mqip"]["host"], port=config["mqip"].getint("port", fallback=502))
 
-    slave_id = config["mqip"].get("slave_id", fallback=None)
+    slave_id = config["mqip"].getint("slave_id", fallback=None)
     request_pause = config["mqip"].getfloat("request_pause", fallback=1.0)
 
     client.connect()
