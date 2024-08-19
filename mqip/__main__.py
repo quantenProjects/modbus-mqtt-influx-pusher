@@ -28,9 +28,10 @@ if __name__ == '__main__':
     client = ModbusTcpClient(config["mqip"]["host"], port=config["mqip"].getint("port", fallback=502))
 
     slave_id = config["mqip"].get("slave_id", fallback=None)
+    request_pause = config["mqip"].getfloat("request_pause", fallback=1.0)
 
     client.connect()
-    result = reader.update(client, slave_id=slave_id)
+    result = reader.update(client, slave_id=slave_id, request_pause=request_pause)
     if result != modbus.UpdateResult.SUCCESSFUL:
         raise RuntimeError("updated failed!")
     else:
@@ -68,7 +69,7 @@ if __name__ == '__main__':
                 timestamp = now().replace(second=0, microsecond=0)
                 try:
                     client.connect()
-                    result = reader.update(client, slave_id=slave_id)
+                    result = reader.update(client, slave_id=slave_id, request_pause=request_pause)
                     if result != modbus.UpdateResult.SUCCESSFUL:
                         close()
                         raise RuntimeError("updated failed!")
