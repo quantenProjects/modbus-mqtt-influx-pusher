@@ -12,6 +12,7 @@ from pymodbus.client import ModbusTcpClient
 from pymodbus.exceptions import ConnectionException, ModbusIOException, ModbusException, InvalidMessageReceivedException
 
 from mqip import modbus
+from mqip.pusher import StdoutPusher
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -50,6 +51,8 @@ if __name__ == '__main__':
     if "influx2" in config:
         from mqip.pusher.influxdb import InfluxPusher
         pushers.append(InfluxPusher(args.config_file))
+    if "stdoutpusher" in config:
+        pushers.append(StdoutPusher())
 
     for pusher in pushers:
         pusher.connect()
