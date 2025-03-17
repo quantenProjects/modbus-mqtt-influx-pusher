@@ -2,10 +2,11 @@
 // Aus einer Excel Tabelle, die so herumgeistert, abgeschrieben
 // mystery7 könnte die elektrische Energie sein
 // Alles ohne Gewähr. Aber in ihrem eigenen Webportal können die mit Einheiten auch nicht umgehen…
+// 
+// In der aktuellen Version sind alle abgefragten Werte Input Register
 {
   // System
   "aussenTemperatur1": {
-    "type":"input",
     "address": 30001,
     "length": 1,
     "type": "int",
@@ -14,7 +15,6 @@
     "description": "System Außentemperatur 1"
   },
   "aussenTemperatur2": {
-    "type":"input",
     "address": 30002,
     "length": 1,
     "type": "int",
@@ -23,7 +23,6 @@
     "description": "System Außentemperatur 2"
   },
     "fehler": {
-    "type":"input",
     "address": 30003,
     "length": 1,
     "type": "uint",
@@ -34,7 +33,6 @@
     }
   },
   "warnung": {
-    "type":"input",
     "address": 30004,
     "length": 1,
     "type": "uint",
@@ -45,7 +43,6 @@
     }
   },
   "fehlerFrei": {
-    "type":"input",
     "address": 30005,
     "length": 1,
     "type": "int",
@@ -57,7 +54,6 @@
     }
   },
   "betriebsStatusAnzeige": {
-    "type":"input",
     "address": 30006,
     "length": 1,
     "type": "int",
@@ -104,7 +100,6 @@
   },
   // Heizkreis
   "raumSollTemperatur": {
-    "type":"input",
     "address": 31101,
     "length": 1,
     "type": "int",
@@ -113,7 +108,6 @@
     "description": "Heizkreis Außentemperatur 2"
   },
   "vorlaufSollTemperatur": {
-    "type":"input",
     "address": 31104,
     "length": 1,
     "type": "int",
@@ -122,7 +116,6 @@
     "description": "Heizkreis Vorlaufsolltemperatur 2"
   },
   "vorlaufTemperatur": {
-    "type":"input",
     "address": 31105,
     "length": 1,
     "type": "int",
@@ -132,7 +125,6 @@
   },
 // Warmwasser
   "warmwasserSollTemperatur": {
-    "type":"input",
     "address": 32101,
     "length": 1,
     "type": "int",
@@ -141,7 +133,6 @@
     "description": "Warmwasser Warmwassersolltemperatur"
   },
   "warmwasserTemperatur": {
-    "type":"input",
     "address": 32102,
     "length": 1,
     "type": "int",
@@ -151,7 +142,6 @@
   },
   // Wärmepumpe
   "betrieb": {
-    "type":"input",
     "address": 33101,
     "length": 1,
     "type": "int",
@@ -197,7 +187,6 @@
     }
   },
   "stoermeldung": {
-    "type":"input",
     "address": 33102,
     "length": 1,
     "type": "int",
@@ -209,7 +198,6 @@
     }
   },
   "leistungsAnforderung": {
-    "type":"input",
     "address": 33103,
     "length": 1,
     "type": "int",
@@ -217,7 +205,6 @@
     "description": "Wärmepumpe Leistungsanforderung"
   },
   "vorlaufTemperatur": {
-    "type":"input",
     "address": 33104,
     "length": 1,
     "type": "int",
@@ -226,7 +213,6 @@
     "description": "Wärmepumpe Vorlauftemperatur"
   },
   "ruecklaufTemperatur": {
-    "type":"input",
     "address": 33105,
     "length": 1,
     "type": "int",
@@ -236,7 +222,6 @@
   },
   // 2. WEZ
   "status2WEZ": {
-    "type":"input",
     "address": 34101,
     "length": 1,
     "type": "int",
@@ -244,7 +229,6 @@
     "description": "2. WEZ Status 2. WEZ"
   },
   "betriebsStunden2WEZ": {
-    "type":"input",
     "address": 34102,
     "length": 1,
     "type": "int",
@@ -252,7 +236,6 @@
     "description": "2. WEZ Betriebsstunden 2. WEZ"
   },
   "schaltSpiele2WEZ": {
-    "type":"input",
     "address": 34103,
     "length": 1,
     "type": "int",
@@ -260,7 +243,6 @@
     "description": "2. WEZ Schaltspiele 2. WEZ"
   },
   "statusE1": {
-    "type":"input",
     "address": 34104,
     "length": 1,
     "type": "int",
@@ -268,7 +250,6 @@
     "description": "2. WEZ Status E-Heizung 1"
   },
   "status2WEZ": {
-    "type":"input",
     "address": 34105,
     "length": 1,
     "type": "int",
@@ -276,7 +257,6 @@
     "description": "2. WEZ Status E-Heizung 1"
   },
   "betriebsStundenE1": {
-    "type":"input",
     "address": 34106,
     "length": 1,
     "type": "int",
@@ -284,7 +264,6 @@
     "description": "2. WEZ Betriebsstunden E1"
   },
   "betriebsStundenE2": {
-    "type":"input",
     "address": 34107,
     "length": 1,
     "type": "int",
@@ -293,7 +272,6 @@
   },
   // Eingänge
   "eingangSGr1": {
-    "type":"input",
     "address": 35101,
     "length": 1,
     "type": "int",
@@ -301,7 +279,6 @@
     "description": "Eingänge SG-Ready 1"
   },
   "eingangSGr2": {
-    "type":"input",
     "address": 35102,
     "length": 1,
     "type": "int",
@@ -309,7 +286,6 @@
     "description": "Eingänge SG-Ready 2"
   },
   "eingangH12": {
-    "type":"input",
     "address": 35103,
     "length": 1,
     "type": "int",
@@ -317,7 +293,6 @@
     "description": "Eingänge Eingang H1.2"
   },
   "eingangH13": {
-    "type":"input",
     "address": 35104,
     "length": 1,
     "type": "int",
@@ -325,7 +300,6 @@
     "description": "Eingänge Eingang H1.3"
   },
   "eingangDE1": {
-    "type":"input",
     "address": 35107,
     "length": 1,
     "type": "int",
@@ -333,7 +307,6 @@
     "description": "Eingänge Eingang DE1"
   },
   "eingangDE2": {
-    "type":"input",
     "address": 35108,
     "length": 1,
     "type": "int",
@@ -342,7 +315,6 @@
   },
   // Statstik
   "gesamtEnergieHeute": {
-    "type":"input",
     "address": 36101,
     "length": 1,
     "type": "int",
@@ -350,7 +322,6 @@
     "description": "Statstik Gesamt Energie Heute"
   },
   "gesamtEnergieGestern": {
-    "type":"input",
     "address": 36102,
     "length": 1,
     "type": "int",
@@ -358,7 +329,6 @@
     "description": "Statstik Gesamt Energie Gestern"
   },
   "gesamtEnergieMonat": {
-    "type":"input",
     "address": 36103,
     "length": 1,
     "type": "int",
@@ -366,7 +336,6 @@
     "description": "Statstik Gesamt Energie Monat"
   },
   "gesamtEnergieJahr": {
-    "type":"input",
     "address": 36104,
     "length": 1,
     "type": "int",
@@ -374,7 +343,6 @@
     "description": "Statstik Gesamt Energie Jahr"
   },
     "heizenEnergieHeute": {
-    "type":"input",
     "address": 36201,
     "length": 1,
     "type": "int",
@@ -382,7 +350,6 @@
     "description": "Statstik Heizen Energie Heute"
   },
   "heizenEnergieGestern": {
-    "type":"input",
     "address": 36202,
     "length": 1,
     "type": "int",
@@ -390,7 +357,6 @@
     "description": "Statstik Heizen Energie Gestern"
   },
   "heizenEnergieMonat": {
-    "type":"input",
     "address": 36203,
     "length": 1,
     "type": "int",
@@ -398,7 +364,6 @@
     "description": "Statstik Heizen Energie Monat"
   },
   "heizenEnergieJahr": {
-    "type":"input",
     "address": 36204,
     "length": 1,
     "type": "int",
@@ -406,7 +371,6 @@
     "description": "Statstik Heizen Energie Jahr"
   },
     "warmwasserEnergieHeute": {
-    "type":"input",
     "address": 36301,
     "length": 1,
     "type": "int",
@@ -414,7 +378,6 @@
     "description": "Statstik Warmwasser Energie Heute"
   },
   "warmwasserEnergieGestern": {
-    "type":"input",
     "address": 36302,
     "length": 1,
     "type": "int",
@@ -422,7 +385,6 @@
     "description": "Statstik Warmwasser Energie Gestern"
   },
   "warmwasserEnergieMonat": {
-    "type":"input",
     "address": 36303,
     "length": 1,
     "type": "int",
@@ -430,7 +392,6 @@
     "description": "Statstik Warmwasser Energie Monat"
   },
   "warmwasserEnergieJahr": {
-    "type":"input",
     "address": 36304,
     "length": 1,
     "type": "int",
@@ -438,7 +399,6 @@
     "description": "Statstik Warmwasser Energie Jahr"
   },
     "kuehlenEnergieHeute": {
-    "type":"input",
     "address": 36401,
     "length": 1,
     "type": "int",
@@ -446,7 +406,6 @@
     "description": "Statstik Kühlen Energie Heute"
   },
   "kuehlenEnergieGestern": {
-    "type":"input",
     "address": 36402,
     "length": 1,
     "type": "int",
@@ -454,7 +413,6 @@
     "description": "Statstik Kühlen Energie Gestern"
   },
   "kuehlenEnergieMonat": {
-    "type":"input",
     "address": 36403,
     "length": 1,
     "type": "int",
@@ -462,7 +420,6 @@
     "description": "Statstik Kühlen Energie Monat"
   },
   "kuehlenEnergieJahr": {
-    "type":"input",
     "address": 36404,
     "length": 1,
     "type": "int",
@@ -470,7 +427,6 @@
     "description": "Statstik Kühlen Energie Jahr"
   },
     "mystery5EnergieHeute": {
-    "type":"input",
     "address": 36501,
     "length": 1,
     "type": "int",
@@ -478,7 +434,6 @@
     "description": "Statstik Mystery 5 Energie Heute"
   },
   "mystery5EnergieGestern": {
-    "type":"input",
     "address": 36502,
     "length": 1,
     "type": "int",
@@ -486,7 +441,6 @@
     "description": "Statstik Mystery 5 Energie Gestern"
   },
   "mystery5EnergieMonat": {
-    "type":"input",
     "address": 36503,
     "length": 1,
     "type": "int",
@@ -494,7 +448,6 @@
     "description": "Statstik Mystery 5 Energie Monat"
   },
   "mystery5EnergieJahr": {
-    "type":"input",
     "address": 36504,
     "length": 1,
     "type": "int",
@@ -502,7 +455,6 @@
     "description": "Statstik Mystery 5 Energie Jahr"
   },
     "mystery6EnergieHeute": {
-    "type":"input",
     "address": 36601,
     "length": 1,
     "type": "int",
@@ -510,7 +462,6 @@
     "description": "Statstik Mystery 6 Energie Heute"
   },
   "mystery6EnergieGestern": {
-    "type":"input",
     "address": 36602,
     "length": 1,
     "type": "int",
@@ -518,7 +469,6 @@
     "description": "Statstik Mystery 6 Energie Gestern"
   },
   "mystery6EnergieMonat": {
-    "type":"input",
     "address": 36603,
     "length": 1,
     "type": "int",
@@ -526,7 +476,6 @@
     "description": "Statstik Mystery 6 Energie Monat"
   },
   "mystery6EnergieJahr": {
-    "type":"input",
     "address": 36604,
     "length": 1,
     "type": "int",
@@ -534,7 +483,6 @@
     "description": "Statstik Mystery 6 Energie Jahr"
   },
     "mystery7EnergieHeute": {
-    "type":"input",
     "address": 36701,
     "length": 1,
     "type": "int",
@@ -542,7 +490,6 @@
     "description": "Statstik Mystery 7 Energie Heute"
   },
   "mystery7EnergieGestern": {
-    "type":"input",
     "address": 36702,
     "length": 1,
     "type": "int",
@@ -550,7 +497,6 @@
     "description": "Statstik Mystery 7 Energie Gestern"
   },
   "mystery7EnergieMonat": {
-    "type":"input",
     "address": 36703,
     "length": 1,
     "type": "int",
@@ -558,7 +504,6 @@
     "description": "Statstik Mystery 7 Energie Monat"
   },
   "mystery7EnergieJahr": {
-    "type":"input",
     "address": 36704,
     "length": 1,
     "type": "int",
