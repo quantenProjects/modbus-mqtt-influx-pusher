@@ -23,7 +23,7 @@ class UpdateResult(Enum):
 
 class RegisterBatch:
 
-    def __init__(self, register_description: dict, name_list: list[str]):
+    def __init__(self, register_description: dict, name_list: list[str], byteorder: Endian, wordorder: Endian):
         self.register_description = register_description
         self.name_list = name_list
 
@@ -31,6 +31,8 @@ class RegisterBatch:
 
         self.addr = register_description[name_list[0]]["address"]
         self.count = register_description[name_list[-1]]["address"] - self.addr + register_description[name_list[-1]]["length"]
+        self.byteorder = byteorder
+        self.wordorder = wordorder
 
     def clear(self):
         self._raw_values = {}
@@ -45,7 +47,7 @@ class RegisterBatch:
         if isinstance(result, ModbusIOException):
             return UpdateResult.FAILURE
         registers = result.registers
-        decoder = BinaryPayloadDecoder.fromRegisters(registers, byteorder=Endian.BIG, wordorder=Endian.LITTLE)
+        decoder = BinaryPayloadDecoder.fromRegisters(registers, byteorder=self.byteorder, wordorder=self.wordorder)
         for i, name in enumerate(self.name_list):
             value = None
             type = self.register_description[name]["type"]
@@ -59,11 +61,22 @@ class RegisterBatch:
                     value = decoder.decode_16bit_int()
                 elif length == 2:
                     value = decoder.decode_32bit_int()
+                elif length == 4:
+                    value = decoder.decode_64bit_int()
             elif type == "uint":
                 if length == 1:
                     value = decoder.decode_16bit_uint()
                 elif length == 2:
                     value = decoder.decode_32bit_uint()
+                elif length == 4:
+                    value = decoder.decode_64bit_uint()
+            elif type == "float":
+                if length == 1:
+                    value = decoder.decode_16bit_float()
+                elif length == 2:
+                    value = decoder.decode_32bit_float()
+                elif length == 4:
+                    value = decoder.decode_64bit_float()
             if value is None:
                 raise ValueError("register descriptions contains unknown data types")
             self._raw_values[name] = value
@@ -76,12 +89,14 @@ class RegisterBatch:
 
 class RegisterReader:
 
-    def __init__(self, register_description: dict, max_batch_size=5):
+    def __init__(self, register_description: dict, wordorder: str, byteorder: str, max_batch_size=5):
         self.register_description = register_description
         self.batches: list[RegisterBatch] = []
         self._values: Values = {}
         self._mapped_values: Values = {}
         self._max_batch_size = max_batch_size
+        self.byteorder = Endian(byteorder)
+        self.wordorder = Endian(wordorder)
 
         def name_to_address(name: str) -> int:
             return register_description[name]["address"]
@@ -95,7 +110,7 @@ class RegisterReader:
         start_index = 0
         for i in range(1, len(names_sorted_by_addr) + 1):
             if i >= len(names_sorted_by_addr) or not check_if_names_are_okay_for_a_batch(names_sorted_by_addr[start_index:i + 1]):
-                self.batches.append(RegisterBatch(register_description, names_sorted_by_addr[start_index: i]))
+                self.batches.append(RegisterBatch(register_description, names_sorted_by_addr[start_index: i], byteorder=self.byteorder, wordorder=self.wordorder))
                 start_index = i
 
     def clear(self):

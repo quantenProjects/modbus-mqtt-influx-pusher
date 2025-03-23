@@ -25,8 +25,11 @@ if __name__ == '__main__':
     with open(config["mqip"]["register_description"]) as file:
         register_description = json5.load(file)
 
-    reader = modbus.RegisterReader(register_description, max_batch_size=config["mqip"].getint("batch_size", fallback=5))
+    wordorder = config["mqip"].get("wordorder", fallback="<")
+    byteorder = config["mqip"].get("byteorder", fallback=">")
+    reader = modbus.RegisterReader(register_description, max_batch_size=config["mqip"].getint("batch_size", fallback=5), wordorder=wordorder, byteorder=byteorder)
     client = ModbusTcpClient(config["mqip"]["host"], port=config["mqip"].getint("port", fallback=502))
+
 
     slave_id = config["mqip"].getint("slave_id", fallback=None)
     request_pause = config["mqip"].getfloat("request_pause", fallback=1.0)
