@@ -43,7 +43,6 @@ class RegisterBatch:
             result = client.read_input_registers(self.addr, self.count)
         else:
             result = client.read_input_registers(self.addr, self.count, slave=slave_id)
-        print(result)
         if isinstance(result, ModbusIOException):
             return UpdateResult.FAILURE
         registers = result.registers
