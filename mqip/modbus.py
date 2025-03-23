@@ -154,6 +154,8 @@ if __name__ == '__main__':
     parser.add_argument("--slave-id", help="Modbus Slave ID", default=None, type=int)
     parser.add_argument("--max-batch-size", help="Read a maximum of max-batch-sizes registers per request", default=5, type=int)
     parser.add_argument("--request-pause", help="Pause between requesting two batches, sec", default=1, type=float)
+    parser.add_argument("--wordorder", help="little: < , big: > Important: quote/escape the character, otherwise bash will eat it.", default="<")
+    parser.add_argument("--byteorder", help="little: < , big: > Important: quote/escape the character, otherwise bash will eat it.", default=">")
     args = parser.parse_args()
 
     with open(args.register_description) as file:
@@ -161,7 +163,7 @@ if __name__ == '__main__':
 
     client = ModbusTcpClient(args.host, port=args.port)
 
-    reader = RegisterReader(register_description, max_batch_size=args.max_batch_size)
+    reader = RegisterReader(register_description, max_batch_size=args.max_batch_size, wordorder=args.wordorder, byteorder=args.byteorder)
     for i, batch in enumerate(reader.batches):
         print(f"batch {i} has {batch.count} bytes, starting at {batch.addr}")
     print(reader.update(client, slave_id=args.slave_id, request_pause=args.request_pause))
