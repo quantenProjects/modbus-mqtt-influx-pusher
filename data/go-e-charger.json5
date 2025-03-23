@@ -1,0 +1,272 @@
+// based on https://github.com/goecharger/go-eCharger-API-v2/blob/f1204fa7ff3474f3cc735e8e4b54e7ca4df0056c/modbus-en.md
+// According to the docs the unit of ENERGY_CARDX is really Watts, which is however power and not energy. The apikeys docs don't specify the unit of the energy on the RFID cards at all. See https://github.com/goecharger/go-eCharger-API-v2/issues/265
+{
+  "CAR_STATE": {
+    "address": 100,
+    "length": 1,
+    "type": "uint",
+    "unit": "constants",
+    "description": "Status PWM signaling",
+    "mapping": {
+      "0": "Unknown, Charging station defective",
+      "1": "Charging station ready, no car",
+      "2": "Car is charging",
+      "3": "Waiting for car",
+      "4": "Charging finished, Car still connected"
+    }
+  },
+  "PP_CABLE": {
+    "address": 101,
+    "length": 1,
+    "type": "uint",
+    "unit": "A",
+    "description": "Type2 Cable ampere coding",
+  },
+  "ERROR": {
+    "address": 107,
+    "length": 1,
+    "type": "uint",
+    "unit": "constants",
+    "description": "Error codes",
+    "mapping": {
+      "1": "RCCB",
+      "3": "PHASE",
+      "8": "NO_GROUND",
+      "10": "INTERNAL"
+    }
+  },
+  "VOLT_L1": {
+    "address": 108,
+    "length": 2,
+    "type": "uint",
+    "unit": "V",
+    "description": "Voltage on L1"
+  },
+  "VOLT_L2": {
+    "address": 110,
+    "length": 2,
+    "type": "uint",
+    "unit": "V",
+    "description": "Voltage on L2"
+  },
+  "VOLT_L3": {
+    "address": 112,
+    "length": 2,
+    "type": "uint",
+    "unit": "V",
+    "description": "Voltage on L3"
+  },
+  "AMP_L1": {
+    "address": 114,
+    "length": 2,
+    "type": "uint",
+    "unit": "A",
+    "factor": 0.1,
+    "description": "Amps on L1"
+  },
+  "AMP_L2": {
+    "address": 116,
+    "length": 2,
+    "type": "uint",
+    "unit": "A",
+    "factor": 0.1,
+    "description": "Amps on L2"
+  },
+  "AMP_L3": {
+    "address": 118,
+    "length": 2,
+    "type": "uint",
+    "unit": "A",
+    "factor": 0.1,
+    "description": "Amps on L3"
+  },
+  "POWER_TOTAL": {
+    "address": 120,
+    "length": 2,
+    "type": "uint",
+    "unit": "W",
+    "factor": 0.01,
+    "description": "Total power"
+  },
+  "ENERGY_TOTAL": {
+    "address": 128,
+    "length": 2,
+    "type": "uint",
+    "unit": "kWh",
+    "factor": 0.1,
+    "description": "Total amount of energy charged"
+  },
+  "ENERGY_CHARGE": {
+    "address": 132,
+    "length": 2,
+    "type": "uint",
+    "unit": "Ws",
+    "factor": 10,
+    "description": "Amount of energy charged in this charging process"
+  },
+  "VOLT_N": {
+    "address": 144,
+    "length": 2,
+    "type": "uint",
+    "unit": "V",
+    "description": "Voltage on N"
+  },
+  "POWER_L1": {
+    "address": 146,
+    "length": 2,
+    "type": "uint",
+    "unit": "kW",
+    "factor": 0.1,
+    "description": "Power on L1"
+  },
+  "POWER_L2": {
+    "address": 148,
+    "length": 2,
+    "type": "uint",
+    "unit": "kW",
+    "factor": 0.1,
+    "description": "Power on L2"
+  },
+  "POWER_L3": {
+    "address": 150,
+    "length": 2,
+    "type": "uint",
+    "unit": "kW",
+    "factor": 0.1,
+    "description": "Power on L3"
+  },
+  "POWER_FACTOR_L1": {
+    "address": 152,
+    "length": 2,
+    "type": "uint",
+    "unit": "%",
+    "description": "Power factor on L1"
+  },
+  "POWER_FACTOR_L2": {
+    "address": 154,
+    "length": 2,
+    "type": "uint",
+    "unit": "%",
+    "description": "Power factor on L2"
+  },
+  "POWER_FACTOR_L3": {
+    "address": 156,
+    "length": 2,
+    "type": "uint",
+    "unit": "%",
+    "description": "Power factor on L3"
+  },
+  "POWER_FACTOR_N": {
+    "address": 158,
+    "length": 2,
+    "type": "uint",
+    "unit": "%",
+    "description": "Power factor on N"
+  },
+  "ALLOW": {
+    "address": 200,
+    "length": 1,
+    "type": "uint",
+    "unit": "constants",
+    "description": "Allow charging: PWM Signal is allowed to abut",
+    "mapping": {
+      "0": "no",
+      "1": "yes"
+    }
+  },
+  "ADAPTER_INPUT": {
+    "address": 202,
+    "length": 1,
+    "type": "uint",
+    "unit": "constants",
+    "description": "The charging box is connected with an adapter",
+    "mapping": {
+      "0": "NO_ADAPTER",
+      "1": "16A_ADAPTER"
+    }
+  },
+  "UNLOCKED_BY": {
+    "address": 203,
+    "length": 1,
+    "type": "uint",
+    "unit": "id",
+    "description": "Number of the RFID card that activated the current charging process"
+  },
+  "PHASES": {
+    "address": 205,
+    "length": 1,
+    "type": "uint",
+    "unit": "flags",
+    "description": "Phases before and after the contactor"
+  },
+  "ENERGY_CARD0": {
+    "address": 332,
+    "length": 4,
+    "type": "float",
+    "unit": "W",
+    "description": "Energy on RFID Card 1"
+  },
+  "ENERGY_CARD1": {
+    "address": 336,
+    "length": 4,
+    "type": "float",
+    "unit": "W",
+    "description": "Energy on RFID Card 2"
+  },
+  "ENERGY_CARD2": {
+    "address": 340,
+    "length": 4,
+    "type": "float",
+    "unit": "W",
+    "description": "Energy on RFID Card 3"
+  },
+  "ENERGY_CARD3": {
+    "address": 344,
+    "length": 4,
+    "type": "float",
+    "unit": "W",
+    "description": "Energy on RFID Card 4"
+  },
+  "ENERGY_CARD4": {
+    "address": 348,
+    "length": 4,
+    "type": "float",
+    "unit": "W",
+    "description": "Energy on RFID Card 5"
+  },
+  "ENERGY_CARD5": {
+    "address": 352,
+    "length": 4,
+    "type": "float",
+    "unit": "W",
+    "description": "Energy on RFID Card 6"
+  },
+  "ENERGY_CARD6": {
+    "address": 356,
+    "length": 4,
+    "type": "float",
+    "unit": "W",
+    "description": "Energy on RFID Card 7"
+  },
+  "ENERGY_CARD7": {
+    "address": 360,
+    "length": 4,
+    "type": "float",
+    "unit": "W",
+    "description": "Energy on RFID Card 8"
+  },
+  "ENERGY_CARD8": {
+    "address": 364,
+    "length": 4,
+    "type": "float",
+    "unit": "W",
+    "description": "Energy on RFID Card 9"
+  },
+  "ENERGY_CARD9": {
+    "address": 368,
+    "length": 4,
+    "type": "float",
+    "unit": "W",
+    "description": "Energy on RFID Card 10"
+  }
+}

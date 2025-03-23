@@ -1,0 +1,745 @@
+// based on https://github.com/goecharger/go-eController-API/blob/b5fc68493a57809ada7da1918b5643499e9bfe52/modbus-en.md
+{
+  "l1_voltage": {
+    "address": 1000,
+    "length": 2,
+    "type": "float",
+    "unit": "V",
+    "description": "Voltage L1"
+  },
+  "l2_voltage": {
+    "address": 1002,
+    "length": 2,
+    "type": "float",
+    "unit": "V",
+    "description": "Voltage L2"
+  },
+  "l3_voltage": {
+    "address": 1004,
+    "length": 2,
+    "type": "float",
+    "unit": "V",
+    "description": "Voltage L3"
+  },
+  "n_voltage": {
+    "address": 1006,
+    "length": 2,
+    "type": "float",
+    "unit": "V",
+    "description": "Voltage N"
+  },
+  "frequency": {
+    "address": 1008,
+    "length": 2,
+    "type": "float",
+    "unit": "Hz",
+    "description": "Frequency"
+  },
+  "s1_current": {
+    "address": 1010,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Current Sensor 1 Current"
+  },
+  "s2_current": {
+    "address": 1012,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Current Sensor 2 Current"
+  },
+  "s3_current": {
+    "address": 1014,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Current Sensor 3 Current"
+  },
+  "s4_current": {
+    "address": 1016,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Current Sensor 4 Current"
+  },
+  "s5_current": {
+    "address": 1018,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Current Sensor 5 Current"
+  },
+  "s6_current": {
+    "address": 1020,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Current Sensor 6 Current"
+  },
+  "s1_power": {
+    "address": 1022,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Current Sensor 1 Power"
+  },
+  "s2_power": {
+    "address": 1024,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Current Sensor 2 Power"
+  },
+  "s3_power": {
+    "address": 1026,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Current Sensor 3 Power"
+  },
+  "s4_power": {
+    "address": 1028,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Current Sensor 4 Power"
+  },
+  "s5_power": {
+    "address": 1030,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Current Sensor 5 Power"
+  },
+  "s6_power": {
+    "address": 1032,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Current Sensor 6 Power"
+  },
+  "s1_powerfactor": {
+    "address": 1034,
+    "length": 2,
+    "type": "float",
+    "unit": "factor",
+    "description": "Current Sensor 1 Powerfactor"
+  },
+  "s2_powerfactor": {
+    "address": 1036,
+    "length": 2,
+    "type": "float",
+    "unit": "factor",
+    "description": "Current Sensor 2 Powerfactor"
+  },
+  "s3_powerfactor": {
+    "address": 1038,
+    "length": 2,
+    "type": "float",
+    "unit": "factor",
+    "description": "Current Sensor 3 Powerfactor"
+  },
+  "s4_powerfactor": {
+    "address": 1040,
+    "length": 2,
+    "type": "float",
+    "unit": "factor",
+    "description": "Current Sensor 4 Powerfactor"
+  },
+  "s5_powerfactor": {
+    "address": 1042,
+    "length": 2,
+    "type": "float",
+    "unit": "factor",
+    "description": "Current Sensor 5 Powerfactor"
+  },
+  "s6_powerfactor": {
+    "address": 1044,
+    "length": 2,
+    "type": "float",
+    "unit": "factor",
+    "description": "Current Sensor 6 Powerfactor"
+  },
+  "home_l1_current": {
+    "address": 1046,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Home Current L1"
+  },
+  "home_l2_current": {
+    "address": 1048,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Home Current L2"
+  },
+  "home_l3_current": {
+    "address": 1050,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Home Current L3"
+  },
+  "home_n_current": {
+    "address": 1052,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Home Current N"
+  },
+  "home_power": {
+    "address": 1054,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Category Home Power"
+  },
+  "home_energy_in": {
+    "address": 1056,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Home Energy In"
+  },
+  "home_energy_out": {
+    "address": 1060,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Home Energy Out"
+  },
+  "home_money_in": {
+    "address": 1064,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Home Money In"
+  },
+  "home_money_out": {
+    "address": 1068,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Home Money Out"
+  },
+  "grid_l1_current": {
+    "address": 1072,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Grid Current L1"
+  },
+  "grid_l2_current": {
+    "address": 1074,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Grid Current L2"
+  },
+  "grid_l3_current": {
+    "address": 1076,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Grid Current L3"
+  },
+  "grid_n_current": {
+    "address": 1078,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Grid Current N"
+  },
+  "grid_power": {
+    "address": 1080,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Category Grid Power"
+  },
+  "grid_energy_in": {
+    "address": 1082,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Grid Energy In"
+  },
+  "grid_energy_out": {
+    "address": 1086,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Grid Energy Out"
+  },
+  "grid_money_in": {
+    "address": 1090,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Grid Money In"
+  },
+  "grid_money_out": {
+    "address": 1094,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Grid Money Out"
+  },
+   "car_l1_current": {
+    "address": 1098,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Car Current L1"
+  },
+  "car_l2_current": {
+    "address": 1100,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Car Current L2"
+  },
+  "car_l3_current": {
+    "address": 1102,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Car Current L3"
+  },
+  "car_n_current": {
+    "address": 1104,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Car Current N"
+  },
+  "car_power": {
+    "address": 1106,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Category Car Power"
+  },
+  "car_energy_in": {
+    "address": 1108,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Car Energy In"
+  },
+  "car_energy_out": {
+    "address": 1112,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Car Energy Out"
+  },
+  "car_money_in": {
+    "address": 1116,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Car Money In"
+  },
+  "car_money_out": {
+    "address": 1120,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Car Money Out"
+  },
+   "relais_l1_current": {
+    "address": 1124,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Relais Current L1"
+  },
+  "relais_l2_current": {
+    "address": 1126,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Relais Current L2"
+  },
+  "relais_l3_current": {
+    "address": 1128,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Relais Current L3"
+  },
+  "relais_ln_current": {
+    "address": 1130,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Relais Current LN"
+  },
+  "relais_power": {
+    "address": 1132,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Category Relais Power"
+  },
+  "relais_energy_in": {
+    "address": 1134,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Relais Energy In"
+  },
+  "relais_energy_out": {
+    "address": 1138,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Relais Energy Out"
+  },
+  "relais_money_in": {
+    "address": 1142,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Relais Money In"
+  },
+  "relais_money_out": {
+    "address": 1146,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Relais Money Out"
+  },
+   "solar_l1_current": {
+    "address": 1150,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Solar Current L1"
+  },
+  "solar_l2_current": {
+    "address": 1152,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Solar Current L2"
+  },
+  "solar_l3_current": {
+    "address": 1154,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Solar Current L3"
+  },
+  "solar_n_current": {
+    "address": 1156,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Solar Current N"
+  },
+  "solar_power": {
+    "address": 1158,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Category Solar Power"
+  },
+  "solar_energy_in": {
+    "address": 1160,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Solar Energy In"
+  },
+  "solar_energy_out": {
+    "address": 1164,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Solar Energy Out"
+  },
+  "solar_money_in": {
+    "address": 1168,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Solar Money In"
+  },
+  "solar_money_out": {
+    "address": 1172,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Solar Money Out"
+  },
+   "akku_l1_current": {
+    "address": 1176,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Akku Current L1"
+  },
+  "akku_l2_current": {
+    "address": 1178,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Akku Current L2"
+  },
+  "akku_l3_current": {
+    "address": 1180,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Akku Current L3"
+  },
+  "akku_n_current": {
+    "address": 1182,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Category Akku Current N"
+  },
+  "akku_power": {
+    "address": 1184,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Category Akku Power"
+  },
+  "akku_energy_in": {
+    "address": 1186,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Akku Energy In"
+  },
+  "akku_energy_out": {
+    "address": 1190,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Category Akku Energy Out"
+  },
+  "akku_money_in": {
+    "address": 1194,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Akku Money In"
+  },
+  "akku_money_out": {
+    "address": 1198,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Category Akku Money Out"
+  },
+   "custom0_l1_current": {
+    "address": 1306,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 0 Current L1"
+  },
+  "custom0_l2_current": {
+    "address": 1308,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 0 Current L2"
+  },
+  "custom0_l3_current": {
+    "address": 1310,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 0 Current L3"
+  },
+  "custom0_n_current": {
+    "address": 1312,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 0 Current N"
+  },
+  "custom0_power": {
+    "address": 1314,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Custom Category 0 Power"
+  },
+  "custom0_energy_in": {
+    "address": 1316,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Custom Category 0 Energy In"
+  },
+  "custom0_energy_out": {
+    "address": 1320,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Custom Category 0 Energy Out"
+  },
+  "custom0_money_in": {
+    "address": 1324,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Custom Category 0 Money In"
+  },
+  "custom0_money_out": {
+    "address": 1328,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Custom Category 0 Money Out"
+  },
+   "custom1_l1_current": {
+    "address": 1332,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 1 Current L1"
+  },
+  "custom1_l2_current": {
+    "address": 1334,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 1 Current L2"
+  },
+  "custom1_l3_current": {
+    "address": 1336,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 1 Current L3"
+  },
+  "custom1_n_current": {
+    "address": 1338,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 1 Current N"
+  },
+  "custom1_power": {
+    "address": 1340,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Custom Category 1 Power"
+  },
+  "custom1_energy_in": {
+    "address": 1342,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Custom Category 1 Energy In"
+  },
+  "custom1_energy_out": {
+    "address": 1346,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Custom Category 1 Energy Out"
+  },
+  "custom1_money_in": {
+    "address": 1350,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Custom Category 1 Money In"
+  },
+  "custom1_money_out": {
+    "address": 1354,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Custom Category 1 Money Out"
+  },
+   "custom2_l1_current": {
+    "address": 1358,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 2 Current L1"
+  },
+  "custom2_l2_current": {
+    "address": 1360,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 2 Current L2"
+  },
+  "custom2_l3_current": {
+    "address": 1362,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 2 Current L3"
+  },
+  "custom2_n_current": {
+    "address": 1364,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 2 Current N"
+  },
+  "custom2_power": {
+    "address": 1366,
+    "length": 2,
+    "type": "float",
+    "unit": "W",
+    "description": "Custom Category 2 Power"
+  },
+  "custom2_energy_in": {
+    "address": 1368,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Custom Category 2 Energy In"
+  },
+  "custom2_energy_out": {
+    "address": 1372,
+    "length": 4,
+    "type": "float",
+    "unit": "Wh",
+    "description": "Custom Category 2 Energy Out"
+  },
+  "custom2_money_in": {
+    "address": 1376,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Custom Category 2 Money In"
+  },
+  "custom2_money_out": {
+    "address": 1380,
+    "length": 4,
+    "type": "float",
+    "unit": "Money",
+    "description": "Custom Category 2 Money Out"
+  },
+   "custom3_l1_current": {
+    "address": 1384,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 3 Current L1"
+  },
+  "custom3_l2_current": {
+    "address": 1386,
+    "length": 2,
+    "type": "float",
+    "unit": "A",
+    "description": "Custom Category 3 Current L2"
+  }
+}
